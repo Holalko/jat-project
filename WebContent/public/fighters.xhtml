@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Athletes</ui:define>
+	<ui:define name="content">
+	<div class="card p-3">
+	<div class="d-inline-block">
+	<h:form>
+	
+	        <ui:repeat value="#{fighterMB.allFighters}" var="fighter">
+	        <div class="card d-inline-block m-4 pb-3" style="width: 18rem;">
+			   <h:graphicImage value="/AvatarImage/#{fighter.id}" 
+               styleClass="card-img-top" width="180" height="250" alt="" />
+			  <div class="card-body">
+			    <h5 class="card-title">#{fighter.firstName} #{fighter.lastName}</h5>
+			    <p class="card-text">#{fighter.nickName}</p>
+			    <h:commandButton rendered="#{loginMB.admin}" action="#{fighterMB.edit(fighter)}" value="Edit" styleClass="btn btn-primary"/> 
+			    <h:commandButton action="#{fighterMB.showInfo(fighter)}" value="Info" styleClass="float-right btn btn-success"/> 
+			  </div>
+			</div>
+	        </ui:repeat>   
+	        </h:form>
+	        </div>
+			<h:form>
+				<h:commandButton rendered="#{loginMB.admin}" action="#{fighterMB.create()}" value="Create new fighter" /> 
+			</h:form>
+			</div>
+	
+	    </ui:define>
+	</ui:composition>
+</html>

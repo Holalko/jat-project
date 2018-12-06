@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Add fighter</ui:define>
+	<ui:define name="content"><div class="card p-4">
+		<h:messages showDetail="false" showSummary="true"
+      errorClass="text-danger" warnClass="text-warning" />
+    <h:form>
+      <div class="form-group">
+        <label for="id">Id</label>
+        <h:inputText styleClass="form-control" id="id"
+          value="#{fighterMB.editedFighter.id}" disabled="true" />
+      </div>
+      <div class="form-group">
+        <label for="name">First name</label>
+        <h:inputText label="First name" class="form-control" id="name"
+          value="#{fighterMB.editedFighter.firstName}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{name}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!name.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="name" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Last name</label>
+        <h:inputText label="Last name" class="form-control" id="lastName"
+          value="#{fighterMB.editedFighter.lastName}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{lastName}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!lastName.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="lastName" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+      
+      <div class="form-group">
+        <label for="name">Nickname</label>
+        <h:inputText label="Nick name" class="form-control" id="nickname"
+          value="#{fighterMB.editedFighter.nickName}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{nickname}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!nickname.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="nickname" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="ship">Team</label>
+        <h:selectOneMenu styleClass="form-control"
+          value="#{fighterMB.editedFighter.team}">
+          <f:selectItem itemValue="#{null}" itemLabel="---"
+            noSelectionOption="true" />
+          <f:selectItems value="#{teamMB.allTeams}" var="t"
+            itemLabel="#{t.name} (#{t.country})" />
+        </h:selectOneMenu>
+      </div>
+      
+      
+      <h:commandButton action="#{fighterMB.save()}" value="Create" styleClass="btn-primary"/>
+      <h:button outcome="/public/fighters" value="Cancel" styleClass="btn-secondary"/>
+    </h:form>
+    
+      <h:form rendered="#{fighterMB.editedFighter.id != null}" id="form" enctype="multipart/form-data">
+		  <h:inputFile id="file" value="#{fighterMB.picture}"
+		      validator="#{fighterMB.validateFile}"/>
+		  <h:commandButton value="Upload"
+		      action="#{fighterMB.upload}">
+		    <f:ajax execute="file" render="@all"/>
+		  </h:commandButton>
+		  <h:graphicImage value="/AvatarImage/#{fighterMB.editedFighter.id}" />
+	</h:form>
+    </div>
+	    </ui:define>
+	</ui:composition>
+</html>

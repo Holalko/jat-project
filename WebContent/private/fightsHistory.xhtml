@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">History of fights</ui:define>
+	<ui:define name="content">
+	<div class="card p-3">
+	
+	<h:form>
+	 <ui:repeat value="#{fightMB.oldFights}" var="fight">
+		 <div class="card-group my-3 border p-2">
+	        <div class="card #{fight.redCorner.getColorForFightResult(fight)}" >
+			   <h:graphicImage value="/AvatarImage/#{fight.redCorner.id}" styleClass="card-img-top" width="180" height="250"  alt="" />
+			  <div class="card-body">
+				    <h5 class="card-title">#{fight.redCorner.firstName} #{fight.redCorner.lastName}</h5>
+				    <p class="card-text">#{fight.redCorner.nickName}</p>
+				  </div>
+				</div>
+				<div class="w-50 text-center position-relative">
+				<h1 class="card-title">#{fight.place}</h1>
+			      <h:outputText class="h3" value="#{fight.date}"><f:converter converterId="localDateConverter"/></h:outputText>
+			    
+			       <span class="h1 align-middle position-absolute" style="top: 50%; left: 45%; font-size: 3.5rem">VS</span>
+			     <br />
+			     <br />
+			     	<h:commandButton rendered="#{loginMB.admin}" action="#{fightMB.setResult(fight)}" value="Set result" styleClass="btn btn-primary"/> 
+			      </div>
+			  <div class="card #{fight.blueCorner.getColorForFightResult(fight)}" >
+				   <h:graphicImage value="/AvatarImage/#{fight.blueCorner.id}" styleClass="card-img-top" width="180" height="250" alt="" />
+				  <div class="card-body">
+				    <h5 class="card-title">#{fight.blueCorner.firstName} #{fight.blueCorner.lastName}</h5>
+				    <p class="card-text">#{fight.blueCorner.nickName}</p>
+				  </div>
+				</div>
+				  
+			</div>
+	        </ui:repeat>  
+	        </h:form>
+			</div>
+	
+	    </ui:define>
+	</ui:composition>
+</html>

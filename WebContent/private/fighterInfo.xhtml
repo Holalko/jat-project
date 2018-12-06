@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Upcoming fights</ui:define>
+	<ui:define name="content">
+	<div class="card p-3">
+		 <div class="card-group my-3 border p-2">
+	        <div class="card" >
+			   <h:graphicImage
+	       value="/AvatarImage/#{fighterMB.editedFighter.id}" styleClass="card-img-top"  alt="" />
+	        <div class="card-body">
+		    <h3 class="card-title">#{fighterMB.editedFighter.fullName}</h3>
+		    <p class="card-text">Total fights: #{fighterMB.editedFighter.fight.size()}</p>
+		    <p class="card-text">Wins: #{fighterMB.editedFighter.winsCount}</p>
+		    <p class="card-text">Loses: #{fighterMB.editedFighter.losesCount}</p>
+		    <p class="card-text">Draws: #{fighterMB.editedFighter.drawsCount}</p>
+		  </div>
+			</div>
+		</div>
+		<h3>Upcoming fights</h3>
+		 <h:dataTable var="f" value="#{fighterMB.upcomingFights}" styleClass="table"
+      rowClasses="table-secondary,table-light,table-info"
+      headerClass="table-dark">
+      <h:column>
+        <f:facet name="header">
+     	 Place
+   		 </f:facet>
+        <h:outputText value="#{f.place}" />
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+     	 Date
+   		 </f:facet>
+        <h:outputText value="#{f.date}" />
+      </h:column>
+     <h:column>
+        <f:facet name="header">
+     	 Red corner
+   		 </f:facet>
+        <h:outputText value="#{f.redCorner.fullName}" />
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+     	 Blue corner
+   		 </f:facet>
+        <h:outputText value="#{f.blueCorner.fullName}" />
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+     	 Referee
+   		 </f:facet>
+        <h:outputText value="#{f.referee.firstName} #{f.referee.lastName}" />
+      </h:column>
+    </h:dataTable>
+	</div>
+	    </ui:define>
+	</ui:composition>
+</html>

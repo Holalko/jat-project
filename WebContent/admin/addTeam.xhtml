@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	
+<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Add Team</ui:define>
+	<ui:define name="content"><div class="card p-3">
+		<h:messages showDetail="false" showSummary="true"
+      errorClass="text-danger" warnClass="text-warning" />
+    <h:form>
+      <div class="form-group">
+        <label for="id">Id</label>
+        <h:inputText styleClass="form-control" id="id"
+          value="#{teamMB.editedTeam.id}" disabled="true" />
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <h:inputText label="Name" class="form-control" id="name"
+          value="#{teamMB.editedTeam.name}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{name}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!name.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="name" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <h:inputText label="Country" class="form-control" id="country"
+          value="#{teamMB.editedTeam.country}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{country}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!country.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="country" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+      
+      
+      <h:commandButton action="#{teamMB.save()}" value="Create" styleClass="btn-primary"/>
+      <h:button outcome="/public/teams" value="Cancel" styleClass="btn-secondary"/>
+    </h:form></div>
+	    </ui:define>
+	</ui:composition>
+</html>

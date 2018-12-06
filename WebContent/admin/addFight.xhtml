@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Add fight</ui:define>
+	<ui:define name="content"><div class="card p-3">
+	<h:body>
+		<p:spinner />
+	</h:body>
+		<h:messages showDetail="false" showSummary="true"
+      errorClass="text-danger" warnClass="text-warning" />
+    <h:form>
+      <div class="form-group">
+        <label for="id">Id</label>
+        <h:inputText styleClass="form-control" id="id"
+          value="#{fightMB.editedFight.id}" disabled="true" />
+      </div>
+      <div class="form-group">
+        <label for="name">Place</label>
+        <h:inputText label="Place" class="form-control" id="place"
+          value="#{fightMB.editedFight.place}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{place}">
+          <f:validateLength minimum="2" maximum="30" />
+        </h:inputText>
+        <h:panelGroup rendered="#{!place.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="place" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+      
+      <div class="form-group">
+        <label for="name">Date</label>
+         <h:inputText label="Date" class="form-control" id="datetime"
+          value="#{fightMB.editedFight.date}"
+          styleClass="form-control #{!component.valid ? 'is-invalid' : 'is-valid'}"
+          binding="#{datetime}" a:placeholder="dd.mm.yyyy">
+        	<f:converter converterId="localDateConverter"/> 
+        </h:inputText>
+        <h:panelGroup rendered="#{!datetime.valid}"
+          styleClass="invalid-feedback">
+          <h:messages for="datetime" showDetail="true"
+            showSummary="false" />
+        </h:panelGroup>
+      </div>
+
+      <div class="form-group">
+        <label for="ship">Red corner fighter</label>
+        <h:selectOneMenu styleClass="form-control"
+          value="#{fightMB.editedFight.redCorner}">
+          <f:selectItems value="#{fighterMB.allFighters}" var="f"
+            itemLabel="#{f.fullName}" />
+        </h:selectOneMenu>
+      </div>
+      
+      <div class="form-group">
+        <label for="ship">Blue corner fighter</label>
+        <h:selectOneMenu styleClass="form-control"
+          value="#{fightMB.editedFight.blueCorner}">
+          <f:selectItems value="#{fighterMB.allFighters}" var="f"
+            itemLabel="#{f.fullName}" />
+        </h:selectOneMenu>
+      </div>
+      <h:outputText id="fightersValidation" value="Fighters Validation" binding="#{fightMB.component}"/>
+      <h:message for="fightersValidation"></h:message>
+      
+      <div class="form-group">
+        <label for="ship">Referee</label>
+        <h:selectOneMenu styleClass="form-control"
+          value="#{fightMB.editedFight.referee}">
+          <f:selectItems value="#{refereeMB.all}" var="r"
+            itemLabel="#{r.firstName} #{r.lastName}" />
+        </h:selectOneMenu>
+      </div>
+      
+      <h:commandButton action="#{fightMB.save()}" value="Create" styleClass="btn-primary"/>
+      <h:button outcome="/public/fights" value="Cancel" styleClass="btn-secondary"/>
+    </h:form></div>
+	    </ui:define>
+	</ui:composition>
+</html>

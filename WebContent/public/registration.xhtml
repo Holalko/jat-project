@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Ultimate fight club</ui:define>
+	<ui:define name="content">
+		<body class="text-center">
+		<div class="card p-5">
+		    <h:form styleClass="form-signin">
+		      <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
+		      <label for="inputEmail" class="sr-only">Username</label>
+		      <h:inputText value="#{registrationMB.registerForm.username}" styleClass="form-control"/> 
+		      <label for="inputPassword" class="sr-only">Password</label>
+		      <h:inputSecret value="#{registrationMB.registerForm.password}" styleClass="form-control" />
+		      <h:commandButton action="#{registrationMB.register()}" value="Register" styleClass="btn btn-lg btn-primary btn-block"/>
+		    </h:form>
+	    </div>
+	    </body>
+	    </ui:define>
+	</ui:composition>
+</html>
